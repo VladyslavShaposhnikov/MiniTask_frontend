@@ -1,0 +1,12 @@
+.task-overdue-card {
+    background-color: #f8d7da;
+    border-color: #dc3545 !important;
+}
+
+.task-overdue-date {
+    color: #dc3545;
+}
+
+.task-overdue-badge {
+    background-color: #dc3545;
+}
