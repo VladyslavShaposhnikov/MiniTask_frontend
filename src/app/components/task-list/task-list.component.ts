@@ -3,11 +3,12 @@ import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { TaskService } from "../../services/task.service";
 import { TaskItem } from "../../models/task.model";
+import { FormsModule } from "@angular/forms";
 
 @Component({
     selector: 'app-task-list',
     standalone: true,
-    imports: [CommonModule, RouterModule],
+    imports: [CommonModule, RouterModule, FormsModule],
     templateUrl: './task-list.component.html',
     styleUrls: ['./task-list.component.css']
 })
@@ -55,24 +56,6 @@ export class TaskListComponent implements OnInit {
                 }
             });
         }
-    }
-
-    onCompleteUncompleteTask(id: number | undefined): void {
-        if (id === undefined) return;
-
-        this.taskService.completeUncompleteTask(id).subscribe({
-            next: () => {
-                this.tasks = this.tasks.map(task =>
-                    task.id === id
-                        ? { ...task, isCompleted: !task.isCompleted }
-                        : task
-                );
-                this.cdr.detectChanges();
-            },
-            error: (error) => {
-                console.error('Failed to complete/uncomplete task: ', error);
-            }
-        });
     }
 
     isTaskOverdue(dueDateString: string | undefined, isCompleted: boolean): boolean {

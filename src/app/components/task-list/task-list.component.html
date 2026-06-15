@@ -31,10 +31,7 @@
         <div class="col">
 
             <div class="card h-100 shadow-sm border-start border-4" [ngClass]="{
-      'task-overdue-card border-danger': isTaskOverdue(task.dueDate, task.isCompleted),
-      'border-success': task.isCompleted && !isTaskOverdue(task.dueDate, task.isCompleted), 
-      'border-warning': !task.isCompleted && task.isImportant && !isTaskOverdue(task.dueDate, task.isCompleted),
-      'border-secondary': !task.isCompleted && !task.isImportant && !isTaskOverdue(task.dueDate, task.isCompleted)
+      'task-overdue-card border-danger': isTaskOverdue(task.dueDate, task.isCompleted)
     }">
 
                 <div class="card-body d-flex flex-column">
@@ -57,7 +54,8 @@
 
                     <div class="mt-3 pt-2 border-top border-light">
                         <div class="d-flex justify-content-between align-items-center">
-                            <small [ngClass]="isTaskOverdue(task.dueDate, task.isCompleted) ? 'task-overdue-date fw-bold' : 'text-muted'">
+                            <small
+                                [ngClass]="isTaskOverdue(task.dueDate, task.isCompleted) ? 'task-overdue-date fw-bold' : 'text-muted'">
                                 📅 Due: {{ task.dueDate | date:'mediumDate' }}
                             </small>
                             <span class="badge" [ngClass]="{
@@ -65,7 +63,8 @@
                                 'bg-success-subtle text-success': task.isCompleted,
                                 'bg-warning-subtle text-warning': !task.isCompleted && !isTaskOverdue(task.dueDate, task.isCompleted)
                             }">
-                                {{ isTaskOverdue(task.dueDate, task.isCompleted) ? 'Overdue' : task.isCompleted ? 'Completed' : 'Pending' }}
+                                {{ isTaskOverdue(task.dueDate, task.isCompleted) ? 'Overdue' : task.isCompleted ?
+                                'Completed' : 'Pending' }}
                             </span>
                         </div>
 
@@ -84,10 +83,10 @@
                     <button (click)="onDeleteTask(task.id)" class="btn btn-sm btn-outline-danger">
                         Delete
                     </button>
-                    <button (click)="onCompleteUncompleteTask(task.id)" class="btn btn-sm"
-                        [ngClass]="task.isCompleted ? 'btn-outline-warning' : 'btn-outline-success'">
-                        {{ task.isCompleted ? '↩️ Undo' : '✅ Complete' }}
-                    </button>
+                    <p [ngClass]="task.isCompleted ? 'btn-outline-warning' : 'btn-outline-success'">
+                        <input type="checkbox" [(ngModel)]="task.isCompleted">
+                        {{ task.isCompleted ? '↩️ Undo' : 'Check to complete' }}
+                    </p>
                 </div>
 
             </div>
